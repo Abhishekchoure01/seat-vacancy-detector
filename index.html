@@ -7,8 +7,21 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>IoT Seat Vacancy Detector</h1>
-    <p>Status: <span id="status">Loading...</span></p>
+    <h1>Interactive Seat Vacancy Dashboard</h1>
+    <div class="seat-container">
+        <div class="seat available" id="seat1" onclick="toggleSeat('seat1')">
+            🪑 Seat 1
+            <p class="timer" id="timer1">00:00</p>
+        </div>
+        <div class="seat available" id="seat2" onclick="toggleSeat('seat2')">
+            🪑 Seat 2
+            <p class="timer" id="timer2">00:00</p>
+        </div>
+        <div class="seat available" id="seat3" onclick="toggleSeat('seat3')">
+            🪑 Seat 3
+            <p class="timer" id="timer3">00:00</p>
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
