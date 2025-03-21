@@ -1,50 +1,44 @@
-body {
-    text-align: center;
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
+let timers = {};
+
+function toggleSeat(seatId) {
+    let seat = document.getElementById(seatId);
+    let timerId = "timer" + seatId.charAt(seatId.length - 1);
+    let timer = document.getElementById(timerId);
+
+    if (seat.classList.contains("available")) {
+        seat.classList.remove("available");
+        seat.classList.add("occupied");
+        seat.textContent = "🪑 Occupied";
+        
+        // Start timer
+        timers[timerId] = 0;
+        updateTimer(timerId);
+    } else {
+        seat.classList.remove("occupied");
+        seat.classList.add("available");
+        seat.textContent = "🪑 Available";
+        
+        // Stop timer
+        clearInterval(timers[timerId]);
+        timer.textContent = "00:00";
+    }
 }
-h1 {
-    color: #333;
-    margin-top: 20px;
-}
-.seat-container {
-    display: grid;
-    grid-template-columns: repeat(3, 140px);
-    gap: 20px;
-    justify-content: center;
-    margin-top: 20px;
-}
-.seat {
-    width: 120px;
-    height: 120px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 50%;
-    transition: background 0.3s, transform 0.3s ease-in-out;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-}
-.available {
-    background-color: green;
-    color: white;
-}
-.occupied {
-    background-color: red;
-    color: white;
-    transform: scale(1.1);
-}
-.seat:hover {
-    transform: scale(1.2);
-    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.3);
-}
-.timer {
-    font-size: 14px;
-    margin-top: 5px;
-    color: white;
+
+function updateTimer(timerId) {
+    let timer = document.getElementById(timerId);
+    timers[timerId] = setInterval(() => {
+        let timeParts = timer.textContent.split(":");
+        let minutes = parseInt(timeParts[0]);
+        let seconds = parseInt(timeParts[1]);
+
+        seconds++;
+        if (seconds == 60) {
+            minutes++;
+            seconds = 0;
+        }
+
+        timer.textContent = 
+            (minutes < 10 ? "0" : "") + minutes + ":" + 
+            (seconds < 10 ? "0" : "") + seconds;
+    }, 1000);
 }
